@@ -1,28 +1,24 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import React, { useEffect } from 'react';
+import AppNavigator from './src/navigation/AppNavigator';
+import { HolidayManager } from './src/services/HolidayManager';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  useEffect(() => {
+    // 앱 시작 시 HolidayManager 초기화
+    const initializeHolidayManager = async () => {
+      try {
+        const manager = HolidayManager.getInstance();
+        await manager.initialize();
+        console.log('HolidayManager 초기화 성공');
+      } catch (error) {
+        console.error('HolidayManager 초기화 실패:', error);
+      }
+    };
 
-  return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
-  );
+    initializeHolidayManager();
+  }, []);
+
+  return <AppNavigator />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
