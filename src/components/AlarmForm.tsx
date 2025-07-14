@@ -7,17 +7,21 @@ import {
   StyleSheet,
   Platform,
   Alert,
+  ScrollView,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
 import { Weekdays } from '../types/alarm';
 import WeekdayPicker from './WeekdayPicker';
+import { ALARM_SOUNDS, DEFAULT_SOUND, getSoundName } from '../constants/sounds';
 
 interface AlarmFormProps {
   initialTime?: string;
   initialLabel?: string;
   initialWeekdays?: Weekdays;
-  onSave: (time: string, label: string, weekdays: Weekdays) => void;
+  initialSound?: string;
+  onSave: (time: string, label: string, weekdays: Weekdays, sound: string) => void;
   onCancel: () => void;
   submitButtonText?: string;
 }
@@ -35,6 +39,7 @@ const AlarmForm: React.FC<AlarmFormProps> = ({
     sunday: false,
     holiday: false,
   },
+  initialSound = DEFAULT_SOUND,
   onSave,
   onCancel,
   submitButtonText = '저장',
@@ -49,6 +54,8 @@ const AlarmForm: React.FC<AlarmFormProps> = ({
   const [label, setLabel] = useState(initialLabel);
   const [weekdays, setWeekdays] = useState(initialWeekdays);
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const [selectedSound, setSelectedSound] = useState(initialSound);
+  const [showSoundPicker, setShowSoundPicker] = useState(false);
 
   const handleSave = () => {
     const hasSelectedDay = Object.values(weekdays).some(value => value);
@@ -58,7 +65,7 @@ const AlarmForm: React.FC<AlarmFormProps> = ({
     }
 
     const formattedTime = moment(time).format('HH:mm');
-    onSave(formattedTime, label.trim(), weekdays);
+    onSave(formattedTime, label.trim(), weekdays, selectedSound);
   };
 
   const onTimeChange = (event: any, selectedDate?: Date) => {
@@ -72,7 +79,7 @@ const AlarmForm: React.FC<AlarmFormProps> = ({
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>시간</Text>
         <TouchableOpacity
@@ -104,6 +111,57 @@ const AlarmForm: React.FC<AlarmFormProps> = ({
       </View>
 
       <View style={styles.section}>
+        <Text style={styles.sectionTitle}>알람음</Text>
+        <TouchableOpacity
+          style={styles.soundButton}
+          onPress={() => setShowSoundPicker(!showSoundPicker)}>
+          <View style={styles.soundButtonContent}>
+            <Icon name="music-note" size={24} color="#666" />
+            <Text style={styles.soundText}>{getSoundName(selectedSound)}</Text>
+            <Icon 
+              name={showSoundPicker ? "expand-less" : "expand-more"} 
+              size={24} 
+              color="#666" 
+            />
+          </View>
+        </TouchableOpacity>
+        
+        {showSoundPicker && (
+          <View style={styles.soundPickerContainer}>
+            {ALARM_SOUNDS.map((sound) => (
+              <TouchableOpacity
+                key={sound.id}
+                style={[
+                  styles.soundItem,
+                  selectedSound === sound.id && styles.selectedSoundItem
+                ]}
+                onPress={() => {
+                  setSelectedSound(sound.id);
+                  setShowSoundPicker(false);
+                }}>
+                <View style={styles.soundItemContent}>
+                  <Text style={[
+                    styles.soundItemText,
+                    selectedSound === sound.id && styles.selectedSoundItemText
+                  ]}>
+                    {sound.name}
+                  </Text>
+                  {sound.description && (
+                    <Text style={styles.soundItemDescription}>
+                      {sound.description}
+                    </Text>
+                  )}
+                </View>
+                {selectedSound === sound.id && (
+                  <Icon name="check" size={24} color="#2196F3" />
+                )}
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+      </View>
+
+      <View style={styles.section}>
         <WeekdayPicker weekdays={weekdays} onChange={setWeekdays} />
       </View>
 
@@ -120,7 +178,7 @@ const AlarmForm: React.FC<AlarmFormProps> = ({
           <Text style={styles.saveButtonText}>{submitButtonText}</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -182,6 +240,56 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#fff',
+  },
+  soundButton: {
+    backgroundColor: '#f0f0f0',
+    padding: 16,
+    borderRadius: 8,
+  },
+  soundButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  soundText: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+    marginLeft: 12,
+  },
+  soundPickerContainer: {
+    marginTop: 8,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+  },
+  soundItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+  },
+  selectedSoundItem: {
+    backgroundColor: '#e3f2fd',
+  },
+  soundItemContent: {
+    flex: 1,
+  },
+  soundItemText: {
+    fontSize: 16,
+    color: '#333',
+    fontWeight: '500',
+  },
+  selectedSoundItemText: {
+    color: '#2196F3',
+  },
+  soundItemDescription: {
+    fontSize: 13,
+    color: '#666',
+    marginTop: 4,
   },
 });
 

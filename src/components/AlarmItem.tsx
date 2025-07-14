@@ -15,6 +15,7 @@ interface AlarmItemProps {
   onToggle: (id: string) => void;
   onPress: (alarm: Alarm) => void;
   onDelete: (id: string) => void;
+  onToggleHolidayOff?: (id: string) => void;
 }
 
 const AlarmItem: React.FC<AlarmItemProps> = ({
@@ -22,6 +23,7 @@ const AlarmItem: React.FC<AlarmItemProps> = ({
   onToggle,
   onPress,
   onDelete,
+  onToggleHolidayOff,
 }) => {
   const getWeekdaysText = () => {
     const activeWeekdays = WEEKDAY_KEYS.filter(key => alarm.weekdays[key]);
@@ -41,6 +43,12 @@ const AlarmItem: React.FC<AlarmItemProps> = ({
         { text: '삭제', style: 'destructive', onPress: () => onDelete(alarm.id) },
       ],
     );
+  };
+
+  const handleHolidayOffToggle = () => {
+    if (onToggleHolidayOff) {
+      onToggleHolidayOff(alarm.id);
+    }
   };
 
   return (
@@ -67,6 +75,18 @@ const AlarmItem: React.FC<AlarmItemProps> = ({
           trackColor={{ false: '#767577', true: '#81b0ff' }}
           thumbColor={alarm.enabled ? '#2196F3' : '#f4f3f4'}
         />
+        {onToggleHolidayOff && (
+          <TouchableOpacity 
+            onPress={handleHolidayOffToggle} 
+            style={[styles.holidayOffButton, !alarm.enabled && styles.disabledButton]}
+          >
+            <Icon 
+              name="beach-access" 
+              size={24} 
+              color={!alarm.enabled ? '#e0e0e0' : (alarm.disableOnHoliday ? '#ff6666' : '#cccccc')} 
+            />
+          </TouchableOpacity>
+        )}
         <TouchableOpacity onPress={handleDelete} style={styles.deleteButton}>
           <Icon name="delete" size={24} color="#ff4444" />
         </TouchableOpacity>
@@ -118,7 +138,13 @@ const styles = StyleSheet.create({
   actions: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 8,
+  },
+  holidayOffButton: {
+    padding: 8,
+  },
+  disabledButton: {
+    opacity: 0.5,
   },
   deleteButton: {
     padding: 8,

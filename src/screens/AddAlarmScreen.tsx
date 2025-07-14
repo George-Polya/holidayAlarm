@@ -6,6 +6,7 @@ import { Weekdays } from '../types/alarm';
 import { AlarmService } from '../services/AlarmService';
 import { StorageService } from '../utils/storage';
 import { RootStackParamList } from '../navigation/AppNavigator';
+import NotificationService from '../services/NotificationService';
 
 type AddAlarmScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -17,9 +18,13 @@ interface Props {
 }
 
 const AddAlarmScreen: React.FC<Props> = ({ navigation }) => {
-  const handleSave = async (time: string, label: string, weekdays: Weekdays) => {
-    const newAlarm = AlarmService.createAlarm(time, label, weekdays);
+  const handleSave = async (time: string, label: string, weekdays: Weekdays, sound: string) => {
+    const newAlarm = AlarmService.createAlarm(time, label, weekdays, sound);
     await StorageService.addAlarm(newAlarm);
+    
+    // 알람 예약
+    await NotificationService.scheduleAlarm(newAlarm);
+    
     navigation.goBack();
   };
 

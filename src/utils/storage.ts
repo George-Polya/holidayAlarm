@@ -57,4 +57,13 @@ export class StorageService {
       await this.updateAlarm(id, { enabled: !alarm.enabled });
     }
   }
+
+  static async toggleHolidayOff(id: string): Promise<void> {
+    const alarms = await this.getAlarms();
+    const alarm = alarms.find(a => a.id === id);
+    
+    if (alarm) {
+      await this.updateAlarm(id, { disableOnHoliday: !alarm.disableOnHoliday });
+    }
+  }
 }

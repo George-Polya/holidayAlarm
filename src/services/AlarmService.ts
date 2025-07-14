@@ -40,10 +40,17 @@ export class AlarmService {
     const holidayManager = HolidayManager.getInstance();
     const isHoliday = await holidayManager.isHoliday(date);
     if (isHoliday) {
-      const holidayAlarms = enabledAlarms.filter(a => a.weekdays.holiday);
+      // 공휴일 OFF 기능이 활성화되지 않은 알람들만 필터링
+      const activeAlarms = enabledAlarms.filter(a => !a.disableOnHoliday);
+      
+      // 공휴일에는 공휴일 선택된 알람만 울려야 함
+      const holidayAlarms = activeAlarms.filter(a => a.weekdays.holiday);
+      
       if (holidayAlarms.length > 0) {
         return this.getEarliestAlarm(holidayAlarms, date);
       }
+      
+      return null;
     }
     
     // 3. 평일인 경우
@@ -105,7 +112,7 @@ export class AlarmService {
     return `alarm_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
 
-  static createAlarm(time: string, label: string, weekdays: Weekdays): Alarm {
+  static createAlarm(time: string, label: string, weekdays: Weekdays, sound?: string): Alarm {
     const now = new Date().toISOString();
     return {
       id: this.generateAlarmId(),
@@ -113,6 +120,7 @@ export class AlarmService {
       label,
       enabled: true,
       weekdays,
+      sound: sound || 'default',
       createdAt: now,
       updatedAt: now,
     };

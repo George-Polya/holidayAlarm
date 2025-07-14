@@ -6,6 +6,7 @@ import AlarmForm from '../components/AlarmForm';
 import { Weekdays } from '../types/alarm';
 import { StorageService } from '../utils/storage';
 import { RootStackParamList } from '../navigation/AppNavigator';
+import NotificationService from '../services/NotificationService';
 
 type EditAlarmScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -25,12 +26,18 @@ interface Props {
 const EditAlarmScreen: React.FC<Props> = ({ navigation, route }) => {
   const { alarm } = route.params;
 
-  const handleSave = async (time: string, label: string, weekdays: Weekdays) => {
+  const handleSave = async (time: string, label: string, weekdays: Weekdays, sound: string) => {
     await StorageService.updateAlarm(alarm.id, {
       time,
       label,
       weekdays,
+      sound,
     });
+    
+    // 알람 업데이트
+    const updatedAlarm = { ...alarm, time, label, weekdays, sound };
+    await NotificationService.updateAlarm(updatedAlarm);
+    
     navigation.goBack();
   };
 
@@ -44,6 +51,7 @@ const EditAlarmScreen: React.FC<Props> = ({ navigation, route }) => {
         initialTime={alarm.time}
         initialLabel={alarm.label}
         initialWeekdays={alarm.weekdays}
+        initialSound={alarm.sound}
         onSave={handleSave}
         onCancel={handleCancel}
         submitButtonText="수정"

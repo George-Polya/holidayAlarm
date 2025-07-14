@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import {
   View,
   FlatList,
@@ -6,6 +6,7 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
+  Animated,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -18,6 +19,7 @@ import { Alarm } from '../types/alarm';
 import { StorageService } from '../utils/storage';
 import { AlarmService } from '../services/AlarmService';
 import { RootStackParamList } from '../navigation/AppNavigator';
+import NotificationService from '../services/NotificationService';
 
 moment.locale('ko');
 
@@ -33,6 +35,8 @@ interface Props {
 const AlarmListScreen: React.FC<Props> = ({ navigation }) => {
   const [alarms, setAlarms] = useState<Alarm[]>([]);
   const [nextAlarm, setNextAlarm] = useState<{ alarm: Alarm; date: Date } | null>(null);
+  const [toastMessage, setToastMessage] = useState<string>('');
+  const toastOpacity = useRef(new Animated.Value(0)).current;
 
   const loadAlarms = async () => {
     const loadedAlarms = await StorageService.getAlarms();
@@ -60,10 +64,55 @@ const AlarmListScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleToggleAlarm = async (id: string) => {
     await StorageService.toggleAlarm(id);
+    const updatedAlarms = await StorageService.getAlarms();
+    const updatedAlarm = updatedAlarms.find(a => a.id === id);
+    
+    if (updatedAlarm) {
+      await NotificationService.updateAlarm(updatedAlarm);
+    }
+    
+    await loadAlarms();
+  };
+
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    Animated.sequence([
+      Animated.timing(toastOpacity, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      Animated.delay(2000),
+      Animated.timing(toastOpacity, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const handleToggleHolidayOff = async (id: string) => {
+    const alarm = alarms.find(a => a.id === id);
+    if (alarm) {
+      const message = !alarm.disableOnHoliday 
+        ? '공휴일 알람 꺼짐' 
+        : '공휴일 알람 켜짐';
+      showToast(message);
+    }
+    await StorageService.toggleHolidayOff(id);
+    
+    const updatedAlarms = await StorageService.getAlarms();
+    const updatedAlarm = updatedAlarms.find(a => a.id === id);
+    
+    if (updatedAlarm && updatedAlarm.enabled) {
+      await NotificationService.updateAlarm(updatedAlarm);
+    }
+    
     await loadAlarms();
   };
 
   const handleDeleteAlarm = async (id: string) => {
+    await NotificationService.cancelAlarm(id);
     await StorageService.deleteAlarm(id);
     await loadAlarms();
   };
@@ -74,6 +123,11 @@ const AlarmListScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleAddAlarm = () => {
     navigation.navigate('AddAlarm');
+  };
+
+  const handleTestSound = async () => {
+    await NotificationService.testNotification();
+    showToast('테스트 알림이 전송되었습니다');
   };
 
   const renderNextAlarmInfo = () => {
@@ -101,6 +155,9 @@ const AlarmListScreen: React.FC<Props> = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>알람</Text>
+        <TouchableOpacity onPress={handleTestSound} style={styles.testButton}>
+          <Icon name="volume-up" size={24} color="#2196F3" />
+        </TouchableOpacity>
       </View>
       {renderNextAlarmInfo()}
       
@@ -113,6 +170,7 @@ const AlarmListScreen: React.FC<Props> = ({ navigation }) => {
             onToggle={handleToggleAlarm}
             onPress={handleEditAlarm}
             onDelete={handleDeleteAlarm}
+            onToggleHolidayOff={handleToggleHolidayOff}
           />
         )}
         contentContainerStyle={styles.listContent}
@@ -131,6 +189,16 @@ const AlarmListScreen: React.FC<Props> = ({ navigation }) => {
         activeOpacity={0.8}>
         <Icon name="add" size={30} color="#fff" />
       </TouchableOpacity>
+      
+      <Animated.View 
+        style={[
+          styles.toast,
+          { opacity: toastOpacity }
+        ]}
+        pointerEvents="none"
+      >
+        <Text style={styles.toastText}>{toastMessage}</Text>
+      </Animated.View>
     </SafeAreaView>
   );
 };
@@ -154,6 +222,9 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
+  },
+  testButton: {
+    padding: 8,
   },
   nextAlarmContainer: {
     backgroundColor: '#2196F3',
@@ -216,6 +287,25 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
+  },
+  toast: {
+    position: 'absolute',
+    bottom: 100,
+    alignSelf: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 20,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  toastText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '500',
   },
 });
 

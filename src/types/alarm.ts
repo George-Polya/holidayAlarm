@@ -15,6 +15,8 @@ export interface Alarm {
   label: string;
   enabled: boolean;
   weekdays: Weekdays;
+  disableOnHoliday?: boolean; // 공휴일에 알람 끄기
+  sound?: string; // 알람 소리 (기본값: 'default')
   createdAt: string;
   updatedAt: string;
 }
