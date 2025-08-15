@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		673DD38D78D06F8539D44EB1 /* libPods-holidayAlarm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8172812FD7FF882C4577FE70 /* libPods-holidayAlarm.a */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A8E076BC256A5283746357E1 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		A9DCEA792E4EF8A700508A51 /* analog_alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = A9DCEA772E4EF8A700508A51 /* analog_alarm.wav */; };
+		A9DCEA7A2E4EF8A700508A51 /* digital_alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = A9DCEA782E4EF8A700508A51 /* digital_alarm.wav */; };
+		CD5D035D43E296AE14D950B7 /* libPods-holidayAlarm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FF36CA28FC9F31F7B01046 /* libPods-holidayAlarm.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,11 +21,13 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = holidayAlarm/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = holidayAlarm/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = holidayAlarm/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		657F6EB847B17AA0BF1C2B00 /* Pods-holidayAlarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-holidayAlarm.release.xcconfig"; path = "Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm.release.xcconfig"; sourceTree = "<group>"; };
-		693215B3177A1A745C82D340 /* Pods-holidayAlarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-holidayAlarm.debug.xcconfig"; path = "Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm.debug.xcconfig"; sourceTree = "<group>"; };
+		48FF36CA28FC9F31F7B01046 /* libPods-holidayAlarm.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-holidayAlarm.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = holidayAlarm/AppDelegate.swift; sourceTree = "<group>"; };
-		8172812FD7FF882C4577FE70 /* libPods-holidayAlarm.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-holidayAlarm.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = holidayAlarm/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9941C1E88E1F5082599B0767 /* Pods-holidayAlarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-holidayAlarm.debug.xcconfig"; path = "Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm.debug.xcconfig"; sourceTree = "<group>"; };
+		A9DCEA772E4EF8A700508A51 /* analog_alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = analog_alarm.wav; sourceTree = "<group>"; };
+		A9DCEA782E4EF8A700508A51 /* digital_alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = digital_alarm.wav; sourceTree = "<group>"; };
+		E85ADFF9524081E0D63045A0 /* Pods-holidayAlarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-holidayAlarm.release.xcconfig"; path = "Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -32,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				673DD38D78D06F8539D44EB1 /* libPods-holidayAlarm.a in Frameworks */,
+				CD5D035D43E296AE14D950B7 /* libPods-holidayAlarm.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,7 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				8172812FD7FF882C4577FE70 /* libPods-holidayAlarm.a */,
+				48FF36CA28FC9F31F7B01046 /* libPods-holidayAlarm.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -70,6 +74,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A9DCEA772E4EF8A700508A51 /* analog_alarm.wav */,
+				A9DCEA782E4EF8A700508A51 /* digital_alarm.wav */,
 				13B07FAE1A68108700A75B9A /* holidayAlarm */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -92,8 +98,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				693215B3177A1A745C82D340 /* Pods-holidayAlarm.debug.xcconfig */,
-				657F6EB847B17AA0BF1C2B00 /* Pods-holidayAlarm.release.xcconfig */,
+				9941C1E88E1F5082599B0767 /* Pods-holidayAlarm.debug.xcconfig */,
+				E85ADFF9524081E0D63045A0 /* Pods-holidayAlarm.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -105,13 +111,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "holidayAlarm" */;
 			buildPhases = (
-				5F3F0806114244CE1BF6FB03 /* [CP] Check Pods Manifest.lock */,
+				AADC7C6D7CEEBA903620F1DA /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				6E5408CDC8A09C942F98D9D1 /* [CP] Embed Pods Frameworks */,
-				CD12C23511E6003A2742AD89 /* [CP] Copy Pods Resources */,
+				B2F15CFDC8BDD5B69902C27F /* [CP] Embed Pods Frameworks */,
+				202EC6FD137A8EEACD91C057 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -159,6 +165,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				A9DCEA792E4EF8A700508A51 /* analog_alarm.wav in Resources */,
+				A9DCEA7A2E4EF8A700508A51 /* digital_alarm.wav in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				A8E076BC256A5283746357E1 /* PrivacyInfo.xcprivacy in Resources */,
 			);
@@ -183,7 +191,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		5F3F0806114244CE1BF6FB03 /* [CP] Check Pods Manifest.lock */ = {
+		202EC6FD137A8EEACD91C057 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AADC7C6D7CEEBA903620F1DA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -205,7 +230,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6E5408CDC8A09C942F98D9D1 /* [CP] Embed Pods Frameworks */ = {
+		B2F15CFDC8BDD5B69902C27F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -220,23 +245,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CD12C23511E6003A2742AD89 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -255,7 +263,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 693215B3177A1A745C82D340 /* Pods-holidayAlarm.debug.xcconfig */;
+			baseConfigurationReference = 9941C1E88E1F5082599B0767 /* Pods-holidayAlarm.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -272,6 +280,8 @@
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
+					"-framework",
+					AVFAudio,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = holidayAlarm;
@@ -283,7 +293,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 657F6EB847B17AA0BF1C2B00 /* Pods-holidayAlarm.release.xcconfig */;
+			baseConfigurationReference = E85ADFF9524081E0D63045A0 /* Pods-holidayAlarm.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -299,6 +309,8 @@
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
+					"-framework",
+					AVFAudio,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = holidayAlarm;

@@ -126,7 +126,8 @@ const AlarmListScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const handleTestSound = async () => {
-    await NotificationService.testNotification();
+    // 새로 추가한 아날로그 알람음으로 테스트
+    await NotificationService.testNotification('analog_alarm');
     showToast('테스트 알림이 전송되었습니다');
   };
 

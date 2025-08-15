@@ -330,3 +330,18 @@ gradle-app.setting
 .nfs*
 
 # End of https://www.toptal.com/developers/gitignore/api/reactnative
+
+dev-debug.log
+# Environment variables
+# Editor directories and files
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# OS specific
+
+# Task files
+# tasks.json
+# tasks/ 

@@ -120,7 +120,8 @@ export class AlarmService {
       label,
       enabled: true,
       weekdays,
-      sound: sound || 'default',
+      // 새 알람 기본값은 아날로그 알람으로 설정
+      sound: sound || 'analog_alarm',
       createdAt: now,
       updatedAt: now,
     };

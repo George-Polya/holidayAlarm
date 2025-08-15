@@ -31,5 +31,21 @@ target 'holidayAlarm' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # Ensure AVFAudio framework is linked to the app target (fixes _AVAudioSessionCategoryAmbient)
+    installer.aggregate_targets.each do |aggregate_target|
+      aggregate_target.user_project.native_targets.each do |native_target|
+        next unless native_target.name == 'holidayAlarm'
+
+        native_target.build_configurations.each do |config|
+          flags = config.build_settings['OTHER_LDFLAGS'] || ['$(inherited)']
+          flags = flags.is_a?(Array) ? flags : flags.to_s.split(' ')
+          unless (flags.include?('-framework') && flags.include?('AVFAudio'))
+            flags += ['-framework', 'AVFAudio']
+          end
+          config.build_settings['OTHER_LDFLAGS'] = flags
+        end
+      end
+    end
   end
 end

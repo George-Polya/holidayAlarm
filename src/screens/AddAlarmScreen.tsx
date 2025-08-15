@@ -23,6 +23,7 @@ const AddAlarmScreen: React.FC<Props> = ({ navigation }) => {
     await StorageService.addAlarm(newAlarm);
     
     // 알람 예약
+    
     await NotificationService.scheduleAlarm(newAlarm);
     
     navigation.goBack();

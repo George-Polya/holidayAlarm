@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -14,7 +14,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
 import { Weekdays } from '../types/alarm';
 import WeekdayPicker from './WeekdayPicker';
-import { ALARM_SOUNDS, DEFAULT_SOUND, getSoundName } from '../constants/sounds';
+import { ALARM_SOUNDS, getSoundName, PREFERRED_DEFAULT_SOUND, isValidSoundId } from '../constants/sounds';
+import SoundPreview from '../services/SoundPreview';
 
 interface AlarmFormProps {
   initialTime?: string;
@@ -39,7 +40,7 @@ const AlarmForm: React.FC<AlarmFormProps> = ({
     sunday: false,
     holiday: false,
   },
-  initialSound = DEFAULT_SOUND,
+  initialSound = PREFERRED_DEFAULT_SOUND,
   onSave,
   onCancel,
   submitButtonText = '저장',
@@ -56,6 +57,7 @@ const AlarmForm: React.FC<AlarmFormProps> = ({
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [selectedSound, setSelectedSound] = useState(initialSound);
   const [showSoundPicker, setShowSoundPicker] = useState(false);
+  const [previewingId, setPreviewingId] = useState<string | null>(null);
 
   const handleSave = () => {
     const hasSelectedDay = Object.values(weekdays).some(value => value);
@@ -77,6 +79,22 @@ const AlarmForm: React.FC<AlarmFormProps> = ({
       setTime(selectedDate);
     }
   };
+
+  // 언마운트 시 미리듣기 정지
+  useEffect(() => {
+    // 불완전/이전 데이터(default 등) 보정
+    if (!isValidSoundId(selectedSound)) {
+      setSelectedSound(PREFERRED_DEFAULT_SOUND);
+    }
+
+    SoundPreview.setListener((id) => {
+      setPreviewingId(id);
+    });
+    return () => {
+      SoundPreview.setListener(undefined);
+      SoundPreview.stop();
+    };
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
@@ -138,6 +156,11 @@ const AlarmForm: React.FC<AlarmFormProps> = ({
                 onPress={() => {
                   setSelectedSound(sound.id);
                   setShowSoundPicker(false);
+                  // 선택 시 미리듣기 중이면 정지
+                  if (previewingId) {
+                    SoundPreview.stop();
+                    setPreviewingId(null);
+                  }
                 }}>
                 <View style={styles.soundItemContent}>
                   <Text style={[
@@ -152,6 +175,26 @@ const AlarmForm: React.FC<AlarmFormProps> = ({
                     </Text>
                   )}
                 </View>
+                <TouchableOpacity
+                  onPress={(e) => {
+                    e.stopPropagation();
+                    if (previewingId === sound.id) {
+                      SoundPreview.stop();
+                      setPreviewingId(null);
+                    } else {
+                      SoundPreview.play(sound.id);
+                      setPreviewingId(sound.id);
+                    }
+                  }}
+                  style={styles.previewButton}
+                  activeOpacity={0.7}
+                >
+                  <Icon 
+                    name={previewingId === sound.id ? 'stop' : 'play-arrow'} 
+                    size={24} 
+                    color={previewingId === sound.id ? '#d32f2f' : '#2196F3'}
+                  />
+                </TouchableOpacity>
                 {selectedSound === sound.id && (
                   <Icon name="check" size={24} color="#2196F3" />
                 )}
@@ -271,6 +314,10 @@ const styles = StyleSheet.create({
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#f0f0f0',
+  },
+  previewButton: {
+    padding: 8,
+    marginRight: 8,
   },
   selectedSoundItem: {
     backgroundColor: '#e3f2fd',

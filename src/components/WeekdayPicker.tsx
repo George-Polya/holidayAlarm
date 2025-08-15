@@ -49,7 +49,7 @@ const WeekdayPicker: React.FC<WeekdayPickerProps> = ({ weekdays, onChange }) => 
       </View>
       {weekdays.holiday && (
         <Text style={styles.holidayInfo}>
-          공휴일 알람은 다른 요일 알람보다 우선됩니다
+          공휴일 알람은 평일 알람보다 우선됩니다
         </Text>
       )}
     </View>
