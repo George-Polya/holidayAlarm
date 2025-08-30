@@ -11,6 +11,7 @@
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A8E076BC256A5283746357E1 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		A91F54F22E62783C00FBAD23 /* military_morning_call.wav in Resources */ = {isa = PBXBuildFile; fileRef = A91F54F12E62783C00FBAD23 /* military_morning_call.wav */; };
 		A9DCEA792E4EF8A700508A51 /* analog_alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = A9DCEA772E4EF8A700508A51 /* analog_alarm.wav */; };
 		A9DCEA7A2E4EF8A700508A51 /* digital_alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = A9DCEA782E4EF8A700508A51 /* digital_alarm.wav */; };
 		CD5D035D43E296AE14D950B7 /* libPods-holidayAlarm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FF36CA28FC9F31F7B01046 /* libPods-holidayAlarm.a */; };
@@ -25,6 +26,7 @@
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = holidayAlarm/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = holidayAlarm/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9941C1E88E1F5082599B0767 /* Pods-holidayAlarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-holidayAlarm.debug.xcconfig"; path = "Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm.debug.xcconfig"; sourceTree = "<group>"; };
+		A91F54F12E62783C00FBAD23 /* military_morning_call.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = military_morning_call.wav; sourceTree = "<group>"; };
 		A9DCEA772E4EF8A700508A51 /* analog_alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = analog_alarm.wav; sourceTree = "<group>"; };
 		A9DCEA782E4EF8A700508A51 /* digital_alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = digital_alarm.wav; sourceTree = "<group>"; };
 		E85ADFF9524081E0D63045A0 /* Pods-holidayAlarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-holidayAlarm.release.xcconfig"; path = "Target Support Files/Pods-holidayAlarm/Pods-holidayAlarm.release.xcconfig"; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A91F54F12E62783C00FBAD23 /* military_morning_call.wav */,
 				A9DCEA772E4EF8A700508A51 /* analog_alarm.wav */,
 				A9DCEA782E4EF8A700508A51 /* digital_alarm.wav */,
 				13B07FAE1A68108700A75B9A /* holidayAlarm */,
@@ -168,6 +171,7 @@
 				A9DCEA792E4EF8A700508A51 /* analog_alarm.wav in Resources */,
 				A9DCEA7A2E4EF8A700508A51 /* digital_alarm.wav in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				A91F54F22E62783C00FBAD23 /* military_morning_call.wav in Resources */,
 				A8E076BC256A5283746357E1 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

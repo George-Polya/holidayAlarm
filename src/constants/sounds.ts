@@ -8,6 +8,7 @@ export const ALARM_SOUNDS: AlarmSound[] = [
   // 커스텀 사운드 (Android: res/raw에 파일 필요)
   { id: 'analog_alarm', name: '아날로그 알람', description: '아날로그 시계 알람음' },
   { id: 'digital_alarm', name: '디지털 알람', description: '디지털 알람음' },
+  { id: 'military_morning_call', name: '군대 기상 나팔', description: '기상 나팔' },
   // 참고: iOS는 .aiff/.wav/.caf 형식만 지원
   // 커스텀 iOS 사운드를 쓰려면 동일 이름의 파일을 iOS 번들에 추가하세요.
 ];

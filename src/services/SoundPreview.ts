@@ -12,6 +12,7 @@ try {
 const SOUND_FILES: Record<string, { ios: string; android: string }> = {
   analog_alarm: { ios: 'analog_alarm.wav', android: 'analog_alarm.mp3' },
   digital_alarm: { ios: 'digital_alarm.wav', android: 'digital_alarm.mp3' },
+  military_morning_call: { ios: 'military_morning_call.wav', android: 'military_morning_call.mp3' },
 };
 
 class SoundPreviewService {

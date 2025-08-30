@@ -342,7 +342,8 @@ dev-debug.log
 *.sw?
 # OS specific
 
+.taskmaster
+
 # Task files
 # tasks.json
 # tasks/ 
-.taskmaster
